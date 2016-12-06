@@ -19,9 +19,9 @@ public class MovieDaoImpl {
     private JdbcTemplate jdbcTemplate;
 
     public List<Movie> getAllMovies() {
-        String sql = "select * from movie;";
+        String sqlGetMovies = "select movie.id, name, year, rate, genre from movie inner join movie_genres on  movie.id=movie_genres.id_movie;";
 
-        return jdbcTemplate.query(sql, new MovieMapper());
+        return jdbcTemplate.query(sqlGetMovies, new MovieMapper());
 
     }
 }

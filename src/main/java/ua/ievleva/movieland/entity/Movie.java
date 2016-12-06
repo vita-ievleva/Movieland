@@ -1,11 +1,34 @@
 package ua.ievleva.movieland.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.List;
+
 public class Movie {
+    @JsonIgnore
+    private String id;
+
     private String title;
     private String yearOfRelease;
     private String rating;
-    private String genre;
+    private List<Genre> genres;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
 
     public String getTitle() {
         return title;
@@ -29,13 +52,5 @@ public class Movie {
 
     public void setRating(String rating) {
         this.rating = rating;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
     }
 }
