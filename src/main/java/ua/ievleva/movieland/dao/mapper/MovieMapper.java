@@ -19,17 +19,17 @@ public class MovieMapper implements ResultSetExtractor<List<Movie>> {
     @Override
     public List<Movie> extractData(ResultSet rs) throws SQLException, DataAccessException {
         Map<String, Movie> map = new HashMap<>();
-        Movie movie = null;
+        Movie movie;
 
         while (rs.next()) {
-            List<Genre> genres = new ArrayList<>();
+            List<Genre> genres;
             String id = rs.getString("id");
 
             movie = map.get(id);
 
             if (movie == null) {
                 movie = new Movie();
-                genres = new ArrayList<Genre>();
+                genres = new ArrayList<>();
 
                 movie.setId(id);
                 movie.setTitle(rs.getString("name"));
@@ -41,6 +41,7 @@ public class MovieMapper implements ResultSetExtractor<List<Movie>> {
 
                 map.put(id, movie);
             } else {
+                genres = movie.getGenres();
                 movie.getGenres().add(new Genre(rs.getString("genre")));
                 movie.setGenres(genres);
             }
