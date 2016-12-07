@@ -16,7 +16,6 @@
 
     </properties>
 
-
     <dependencies>
 
         <!--SPRING-->
@@ -53,9 +52,7 @@
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
             <scope>provided</scope>
-
         </dependency>
-
 
         <!--JACKSON-->
         <dependency>
@@ -69,7 +66,11 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>${jackson}</version>
+        </dependency>
 
         <!-- Logs -->
         <dependency>
@@ -103,7 +104,6 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
             </plugin>
-
         </plugins>
     </build>
 
