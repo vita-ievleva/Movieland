@@ -10,6 +10,7 @@ import ua.ievleva.movieland.dao.mapper.MovieMapper;
 import ua.ievleva.movieland.entity.Movie;
 
 import java.util.List;
+import java.util.Properties;
 
 @Service
 public class MovieDaoImpl implements MovieDao {
@@ -17,11 +18,14 @@ public class MovieDaoImpl implements MovieDao {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
+    private Properties sqls;
+
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Override
     public List<Movie> getAllMovies() {
-        String sqlGetMovies = "select movie.id, name, year, rate, genre from movie inner join movie_genres on  movie.id=movie_genres.id_movie;";
+        String sqlGetMovies = sqls.getProperty("movies.select.allMovies");
 
         return jdbcTemplate.query(sqlGetMovies, new MovieMapper());
 
