@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import ua.ievleva.movieland.dao.impl.MovieDaoImpl;
+import ua.ievleva.movieland.dao.MovieDao;
 
 
 @RestController
@@ -17,13 +18,20 @@ public class MovieLandController {
 
 
     @Autowired
-    private MovieDaoImpl movieDao;
+    private MovieDao movieDao;
 
 
-    @GetMapping(value = "/v1/movies", produces = "application/json")
-    public ResponseEntity<?> greeting() {
+    @GetMapping(value = "/v1/movies", produces = {"application/json", "application/xml"})
+    public ResponseEntity<?> getAllMovies() {
 
         return new ResponseEntity<>(movieDao.getAllMovies(), HttpStatus.OK);
+    }
+
+
+    @GetMapping(value = "/v1/movie/{movieId}", produces = {"application/json", "application/xml"})
+    public ResponseEntity<?> getMovieById(@PathVariable("movieId") String movieId) {
+
+        return new ResponseEntity<>(movieDao.getMovieById(movieId), HttpStatus.OK);
     }
 
 }
