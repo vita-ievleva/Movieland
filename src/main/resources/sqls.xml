@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>MovieLand Queries</comment>
+    <entry key="movies.select.allMovies">
+        SELECT
+        movie.id,
+        name,
+        year,
+        rate,
+        genre
+        FROM movie
+        INNER JOIN movie_genres
+        ON movie.id=movie_genres.id_movie;
+    </entry>
+
+    <entry key="movie.select.byId">
+        SELECT
+         id
+        ,name
+        ,year
+        ,country
+        ,description
+        ,rate
+        FROM movie
+        WHERE movie.id = :id;
+    </entry>
+
+    <entry key="genre.select.byMovieId">
+        SELECT id_movie, genre
+        FROM movie
+        INNER JOIN movie_genres
+        ON movie.id=movie_genres.id_movie
+        WHERE movie.id = :id;
+    </entry>
+
+    <entry key="review.select.byMovieId">
+        SELECT id_movie, review_text
+        FROM movie
+        INNER JOIN review
+        ON movie.id=review.id_movie
+        WHERE movie.id = :id;
+    </entry>
+
+</properties>
