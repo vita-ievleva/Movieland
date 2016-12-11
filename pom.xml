@@ -10,11 +10,12 @@
     <packaging>war</packaging>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>4.3.0.RELEASE</spring.version>
         <logback.version>1.1.7</logback.version>
         <jackson>2.8.5</jackson>
-
     </properties>
+
 
     <dependencies>
 

@@ -25,4 +25,8 @@
         <property name="password" value="${DB_PASSWORD}"/>
     </bean>
 
+    <bean
+        id="jsonMapper" class = "com.fasterxml.jackson.databind.ObjectMapper">
+    </bean>
+
 </beans>

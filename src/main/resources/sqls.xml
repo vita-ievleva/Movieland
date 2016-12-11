@@ -8,8 +8,7 @@
         name,
         year,
         rate,
-        genre
-        FROM movie
+        genre FROM movie
         INNER JOIN movie_genres
         ON movie.id=movie_genres.id_movie;
     </entry>
@@ -21,25 +20,29 @@
         ,year
         ,country
         ,description
-        ,rate
-        FROM movie
+        ,rate FROM movie
         WHERE movie.id = :id;
     </entry>
 
     <entry key="genre.select.byMovieId">
-        SELECT id_movie, genre
-        FROM movie
+        SELECT id_movie, genre FROM movie
         INNER JOIN movie_genres
         ON movie.id=movie_genres.id_movie
         WHERE movie.id = :id;
     </entry>
 
     <entry key="review.select.byMovieId">
-        SELECT id_movie, review_text
-        FROM movie
+        SELECT id_movie, review_text FROM movie
         INNER JOIN review
         ON movie.id=review.id_movie
         WHERE movie.id = :id;
+    </entry>
+
+    <entry key="movies.select.bySearchParameters">
+        SELECT movie.id, name, year, rate, genre FROM movie
+        INNER JOIN movie_genres
+        ON movie.id=movie_genres.id_movie
+        WHERE [conditions] ;
     </entry>
 
 </properties>
