@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
-
     <display-name>MovieLand</display-name>
 
     <servlet>
@@ -9,12 +8,10 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
-
     <servlet-mapping>
         <servlet-name>movieLand</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -24,6 +21,4 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:/spring/applicationContext.xml</param-value>
     </context-param>
-
-
 </web-app>
