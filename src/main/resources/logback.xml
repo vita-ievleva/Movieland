@@ -9,7 +9,7 @@
 
     <appender name="ROLLING_FILE"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>test_debug.log</file>
+        <file>movieLand.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>%d %p{5} [%C.%M:%L] %m%n</pattern>
         </encoder>
@@ -24,7 +24,6 @@
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
     </appender>
-
 
     <root level="INFO">
         <appender-ref ref="ROLLING_FILE"/>
