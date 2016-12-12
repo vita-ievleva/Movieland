@@ -18,12 +18,12 @@ public class MovieMapper implements ResultSetExtractor<List<Movie>> {
 
     @Override
     public List<Movie> extractData(ResultSet rs) throws SQLException, DataAccessException {
-        Map<String, Movie> map = new HashMap<>();
+        Map<Long, Movie> map = new HashMap<>();
         Movie movie;
 
         while (rs.next()) {
             List<Genre> genres;
-            String id = rs.getString("id");
+            Long id = rs.getLong("id");
 
             movie = map.get(id);
 
@@ -34,7 +34,7 @@ public class MovieMapper implements ResultSetExtractor<List<Movie>> {
                 movie.setId(id);
                 movie.setTitle(rs.getString("name"));
                 movie.setYearOfRelease(rs.getString("year"));
-                movie.setRating(rs.getString("rate"));
+                movie.setRating(rs.getDouble("rate"));
 
                 genres.add(new Genre(rs.getString("genre")));
                 movie.setGenres(genres);

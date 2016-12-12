@@ -13,7 +13,7 @@ public class MovieByIdMapper implements RowMapper<Movie> {
     public Movie mapRow(ResultSet rs, int i) throws SQLException {
         Movie movie = new Movie();
 
-        movie.setId(rs.getString("id"));
+        movie.setId(rs.getLong("id"));
         movie.setTitle(rs.getString("name"));
         movie.setYearOfRelease(rs.getString("year"));
         movie.setCountry(rs.getString("country"));

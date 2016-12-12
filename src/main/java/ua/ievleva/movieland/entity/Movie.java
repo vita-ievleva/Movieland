@@ -10,11 +10,11 @@ import java.util.List;
 public class Movie {
 
     @JsonIgnore
-    private String id;
+    private Long id;
 
+    private Double rating;
     private String title;
     private String yearOfRelease;
-    private String rating;
     private String description;
     private String country;
     private List<Genre> genres;
@@ -44,11 +44,11 @@ public class Movie {
         this.reviews = reviews;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -76,11 +76,11 @@ public class Movie {
         this.yearOfRelease = yearOfRelease;
     }
 
-    public String getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 
