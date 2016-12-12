@@ -10,23 +10,22 @@
         http://www.springframework.org/schema/util
         http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <context:component-scan base-package="ua.ievleva.movieland"/>
+    <context:component-scan base-package="ua.ievleva.movieland">
+        <context:exclude-filter type="regex" expression="ua\.ievleva\.movieland\.controller\..*"/>
+    </context:component-scan>
+
     <context:property-placeholder location="classpath:db.properties"/>
-    <util:properties id="sqls" location="classpath:sqls.xml"/>
+    <util:properties id="sqlsQueries" location="classpath:sql-queries.xml"/>
 
     <bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
         <constructor-arg ref="dataSource"/>
     </bean>
 
-    <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="${DB_DRIVER_CLASS}"/>
-        <property name="url" value="${DB_URL}"/>
-        <property name="username" value="${DB_USERNAME}"/>
-        <property name="password" value="${DB_PASSWORD}"/>
-    </bean>
-
-    <bean
-        id="jsonMapper" class = "com.fasterxml.jackson.databind.ObjectMapper">
+    <bean name="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${db.driver}"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
     </bean>
 
 </beans>
