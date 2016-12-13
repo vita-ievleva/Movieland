@@ -9,8 +9,12 @@
         rate,
         genre FROM movie
         INNER JOIN movie_genres
-        ON movie.id=movie_genres.id_movie;
+        ON movie.id=movie_genres.id_movie
+        ORDER BY [conditions];
     </entry>
+     <entry key="default.order.by">
+         rate desc, price asc
+     </entry>
 
     <entry key="movie.select.byId">
         SELECT
@@ -41,7 +45,7 @@
         SELECT movie.id, name, year, rate, genre FROM movie
         INNER JOIN movie_genres
         ON movie.id=movie_genres.id_movie
-        WHERE [conditions] ;
+        WHERE [conditions];
     </entry>
 
 </properties>

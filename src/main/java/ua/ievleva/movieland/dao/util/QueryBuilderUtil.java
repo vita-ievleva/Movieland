@@ -11,5 +11,12 @@ public class QueryBuilderUtil{
 
         return sb.delete(sb.length() - 4, sb.length() - 1).toString();
     }
+
+    public static String buildOrderByQuery(Map<String, String> searchParameters) {
+        StringBuilder sb = new StringBuilder();
+        searchParameters.forEach((k, v) -> sb.append(k).append(" ").append(v).append(", "));
+
+        return sb.deleteCharAt(sb.length() - 2).toString();
+    }
 }
 

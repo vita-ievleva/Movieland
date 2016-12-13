@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface MovieDao {
 
-    List<Movie> getAllMovies();
+    List<Movie> getAllMovies(Map<String, String> orderByParameters);
 
     Movie getMovieById(String movieId);
 

@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import static ua.ievleva.movieland.dao.util.QueryBuilderUtil.buildConditionQuery;
+import static ua.ievleva.movieland.dao.util.QueryBuilderUtil.buildOrderByQuery;
 
 @Service
 public class MovieDaoImpl implements MovieDao {
@@ -34,8 +35,16 @@ public class MovieDaoImpl implements MovieDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public List<Movie> getAllMovies() {
-        String sql = sqlsQueries.getProperty("movies.select.allMovies");
+    public List<Movie> getAllMovies(Map<String, String> orderByParameters) {
+        String sqlCondition;
+
+        if(orderByParameters.isEmpty()) {
+            sqlCondition = sqlsQueries.getProperty("default.order.by");
+        } else {
+            sqlCondition =  buildOrderByQuery(orderByParameters);
+        }
+        String sql = sqlsQueries.getProperty("movies.select.allMovies")
+                .replace("[conditions]", sqlCondition);
 
         return namedParameterJdbcTemplate.query(sql, MOVIE_MAPPER);
     }
