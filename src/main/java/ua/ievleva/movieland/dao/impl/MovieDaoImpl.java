@@ -3,7 +3,7 @@ package ua.ievleva.movieland.dao.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import ua.ievleva.movieland.dao.MovieDao;
 import ua.ievleva.movieland.dao.mapper.GenresByIdMapper;
 import ua.ievleva.movieland.dao.mapper.MovieByIdMapper;
@@ -20,7 +20,8 @@ import java.util.Properties;
 import static ua.ievleva.movieland.dao.util.QueryBuilderUtil.buildConditionQuery;
 import static ua.ievleva.movieland.dao.util.QueryBuilderUtil.buildOrderByQuery;
 
-@Service
+
+@Component
 public class MovieDaoImpl implements MovieDao {
 
     private static final MovieMapper MOVIE_MAPPER = new MovieMapper();
@@ -29,7 +30,7 @@ public class MovieDaoImpl implements MovieDao {
     private static final GenresByIdMapper GENRES_BY_ID_MAPPER = new GenresByIdMapper();
 
     @Autowired
-    private Properties sqlsQueries;
+    private Properties sqlQueries;
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -39,11 +40,11 @@ public class MovieDaoImpl implements MovieDao {
         String sqlCondition;
 
         if(orderByParameters.isEmpty()) {
-            sqlCondition = sqlsQueries.getProperty("default.order.by");
+            sqlCondition = sqlQueries.getProperty("default.order.by");
         } else {
             sqlCondition =  buildOrderByQuery(orderByParameters);
         }
-        String sql = sqlsQueries.getProperty("movies.select.allMovies")
+        String sql = sqlQueries.getProperty("movies.select.allMovies")
                 .replace("[conditions]", sqlCondition);
 
         return namedParameterJdbcTemplate.query(sql, MOVIE_MAPPER);
@@ -51,7 +52,7 @@ public class MovieDaoImpl implements MovieDao {
 
     @Override
     public Movie getMovieById(String movieId) {
-        String sql = sqlsQueries.getProperty("movie.select.byId");
+        String sql = sqlQueries.getProperty("movie.select.byId");
 
         Movie movie = namedParameterJdbcTemplate.queryForObject(sql,
                 new MapSqlParameterSource("id", movieId),
@@ -65,14 +66,14 @@ public class MovieDaoImpl implements MovieDao {
 
     @Override
     public List<Movie> searchMovies(Map<String, String> searchParameters) {
-        String sql = sqlsQueries.getProperty("movies.select.bySearchParameters");
+        String sql = sqlQueries.getProperty("movies.select.bySearchParameters");
         sql = sql.replace("[conditions]", buildConditionQuery(searchParameters));
 
         return namedParameterJdbcTemplate.query(sql, MOVIE_MAPPER);
     }
 
     private List<Review> getReviewsByMovieId(String movieId) {
-        String sql = sqlsQueries.getProperty("review.select.byMovieId");
+        String sql = sqlQueries.getProperty("review.select.byMovieId");
 
         return namedParameterJdbcTemplate.query(sql,
                 new MapSqlParameterSource("id", movieId),
@@ -80,7 +81,7 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     private List<Genre> getGenresByMovieId(String movieId) {
-        String sql = sqlsQueries.getProperty("genre.select.byMovieId");
+        String sql = sqlQueries.getProperty("genre.select.byMovieId");
 
         return namedParameterJdbcTemplate.query(sql,
                 new MapSqlParameterSource("id", movieId),
