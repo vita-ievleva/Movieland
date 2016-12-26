@@ -54,4 +54,10 @@
         ON authorities.username = users.username where users.username = :username;
     </entry>
 
+    <entry key="users.byUserName">
+        SELECT users.username, password, authority, enabled
+        FROM users INNER JOIN authorities
+        ON authorities.username = users.username where users.username = :username;
+    </entry>
+
 </properties>
