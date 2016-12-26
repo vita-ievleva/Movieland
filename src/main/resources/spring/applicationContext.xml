@@ -15,7 +15,7 @@
     </context:component-scan>
 
     <context:property-placeholder location="classpath:db.properties"/>
-    <util:properties id="sqlsQueries" location="classpath:sql-queries.xml"/>
+    <util:properties id="sqlQueries" location="classpath:sql-queries.xml"/>
 
     <bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
         <constructor-arg ref="dataSource"/>
@@ -27,5 +27,13 @@
         <property name="username" value="${db.username}"/>
         <property name="password" value="${db.password}"/>
     </bean>
+
+    <bean id="bcrypt" class="org.mindrot.jbcrypt.BCrypt"/>
+
+    <bean id="tokenCache" class="ua.ievleva.movieland.security.token.TokenCache">
+        <constructor-arg type="int" value="120"/>
+    </bean>
+
+    <bean id="authenticationFilter" class="ua.ievleva.movieland.security.filter.AuthenticationFilter"/>
 
 </beans>
