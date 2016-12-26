@@ -8,8 +8,6 @@ import ua.ievleva.movieland.dao.MovieDao;
 
 import java.util.Map;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-
 @RestController
 public class MovieLandController {
 
@@ -28,7 +26,7 @@ public class MovieLandController {
         return new ResponseEntity<>(movieDao.getMovieById(movieId), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/v1/search",method =  GET, consumes = "application/json", produces = {"application/json", "application/xml"})
+    @PostMapping(value = "/v1/search", consumes = "application/json", produces = {"application/json", "application/xml"})
     public ResponseEntity<?> searchMovies(@RequestBody Map<String, String> searchQuery) {
 
         return new ResponseEntity<>(movieDao.searchMovies(searchQuery), HttpStatus.OK);
