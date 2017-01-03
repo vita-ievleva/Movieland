@@ -8,7 +8,10 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
+import ua.ievleva.movieland.entity.Role;
 import ua.ievleva.movieland.entity.User;
+
+import java.util.ArrayList;
 
 @PropertySource("classpath:security.properties")
 @Component
@@ -37,6 +40,10 @@ public class TokenUtils {
         return Jwts.parser()
                 .setSigningKey(secret)
                 .parseClaimsJws(token).getBody();
+    }
+
+    public boolean checkUserRole(Role role, String token) {
+        return parseToken(token).get("role", ArrayList.class).contains(role.toString());
     }
 
 }
