@@ -31,7 +31,7 @@ public class UserValidationInterceptor implements MethodInterceptor {
             return null;
         }
 
-        logger.error("User is authorized.");
+        logger.debug("User is authorized.");
 
         return invocation.proceed();
     }
