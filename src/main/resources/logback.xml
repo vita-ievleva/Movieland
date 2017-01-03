@@ -3,24 +3,23 @@
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d %p{5} [%C.%M:%L] %m%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %p{5} [%C.%M:%L] %m%n</pattern>
         </encoder>
     </appender>
 
     <appender name="ROLLING_FILE"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>movieLand.log</file>
+        <file>movieland.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%d %p{5} [%C.%M:%L] %m%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %p{5} [%C.%M:%L] %m%n</pattern>
         </encoder>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- rollover daily -->
-            <fileNamePattern>movie_land.%d{yyyy-MM-dd}.%i.log
+            <fileNamePattern>movieland.%d{yyyy-MM-dd}.log.%i
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>10MB</maxFileSize>
+                <maxFileSize>5MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
     </appender>
