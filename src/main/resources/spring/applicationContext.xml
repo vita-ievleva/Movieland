@@ -36,4 +36,8 @@
 
     <bean id="authenticationFilter" class="ua.ievleva.movieland.security.filter.AuthenticationFilter"/>
 
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+        <property name="proxyTargetClass" value="true"/>
+    </bean>
+
 </beans>
