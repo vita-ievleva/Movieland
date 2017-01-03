@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ua.ievleva.movieland.dao.UserDao;
 import ua.ievleva.movieland.entity.User;
-import ua.ievleva.movieland.exception.InvalidCredentialsException;
 import ua.ievleva.movieland.security.token.TokenUtils;
 import ua.ievleva.movieland.security.token.TokenCache;
 
@@ -44,16 +43,17 @@ public class AuthenticationController {
 
         try {
             user = userDao.findUserByCredentials(credentials);
-        } catch (InvalidCredentialsException e) {
-            logger.error("Invalid password provided.", e);
+        } catch (Exception e) {
+            logger.error("Invalid password or username was provided.", e);
 
-            return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Invalid password or username was provided.",
+                    HttpStatus.UNAUTHORIZED);
         }
 
         String token = tokenUtils.createToken(user, parseInt(expiration));
 
         tokenCache.addAuthorizedUser(user.getUserName(), token);
-        logger.debug("Added user and token into cache.");
+        logger.debug("Added user and token to cache.");
 
         Map<String, String> response = new HashMap<>();
         response.put("token", token);
