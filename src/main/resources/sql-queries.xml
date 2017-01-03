@@ -2,12 +2,8 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <entry key="movies.select.allMovies">
-        SELECT
-        movie.id,
-        name,
-        year,
-        rate,
-        genre FROM movie
+        SELECT movie.id, name, year, rate, genre
+        FROM movie
         INNER JOIN movie_genres
         ON movie.id=movie_genres.id_movie
         ORDER BY [conditions];
@@ -17,13 +13,8 @@
      </entry>
 
     <entry key="movie.select.byId">
-        SELECT
-         id
-        ,name
-        ,year
-        ,country
-        ,description
-        ,rate FROM movie
+        SELECT id, name year, country, description, rate
+        FROM movie
         WHERE movie.id = :id;
     </entry>
 
@@ -62,6 +53,11 @@
 
     <entry key="insert.review">
         INSERT INTO review (id_movie, username, review_text) VALUES (:id_movie, :username, :review_text);
+    </entry>
+
+    <entry key="delete.review">
+        DELETE FROM review WHERE id_movie = :id_movie AND username = :username AND review_text = :review_text
+        LIMIT 1
     </entry>
 
 </properties>
