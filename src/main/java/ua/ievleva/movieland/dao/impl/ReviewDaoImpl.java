@@ -30,15 +30,28 @@ public class ReviewDaoImpl implements ReviewDao {
     public boolean addReview(Map<String, String> review) {
         String sql = sqlQueries.getProperty("insert.review");
 
-        if (review.size() == 3) {
-            int insertedRow = namedParameterJdbcTemplate.update(sql, review);
-
-            logger.debug("Inserted " + insertedRow + "new review.");
-            return insertedRow == 1;
-        }
-
-        logger.error("Review has not been added: Invalid parameters were passed.");
-        return false;
+        return updateReview(review, sql);
     }
 
+    @RequiresUserType(ROLE_USER)
+    @Override
+    public boolean deleteReview(Map<String, String> review) {
+        String sql = sqlQueries.getProperty("delete.review");
+
+        return updateReview(review, sql);
+    }
+
+
+    private boolean updateReview(Map<String, String> review, String sql) {
+        if (review.size() == 3) {
+            int updatedRow = namedParameterJdbcTemplate.update(sql, review);
+
+            logger.debug("Updated " + updatedRow + " reviews.");
+            return updatedRow == 1;
+        }
+
+        logger.error("Invalid parameters were passed.");
+        return false;
+
+    }
 }
