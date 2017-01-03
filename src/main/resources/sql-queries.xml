@@ -60,4 +60,8 @@
         ON authorities.username = users.username where users.username = :username;
     </entry>
 
+    <entry key="insert.review">
+        INSERT INTO review (id_movie, username, review_text) VALUES (:id_movie, :username, :review_text);
+    </entry>
+
 </properties>
