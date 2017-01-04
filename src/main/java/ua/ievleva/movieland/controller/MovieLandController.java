@@ -15,9 +15,9 @@ public class MovieLandController {
     private MovieDao movieDao;
 
     @GetMapping(value = "/v1/movies", produces = {"application/json", "application/xml"})
-    public ResponseEntity<?> getAllMovies(@RequestParam(required = false) Map<String, String> orderBy) {
+    public ResponseEntity<?> getAllMovies(@RequestParam(required = false) Map<String, String> parameters) {
 
-        return new ResponseEntity<>(movieDao.getAllMovies(orderBy), HttpStatus.OK);
+        return new ResponseEntity<>(movieDao.getAllMovies(parameters), HttpStatus.OK);
     }
 
     @GetMapping(value = "/v1/movie/{movieId}", produces = {"application/json", "application/xml"})
