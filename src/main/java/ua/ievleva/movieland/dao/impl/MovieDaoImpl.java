@@ -1,9 +1,13 @@
 package ua.ievleva.movieland.dao.impl;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 import ua.ievleva.movieland.dao.MovieDao;
 import ua.ievleva.movieland.dao.mapper.GenresByIdMapper;
 import ua.ievleva.movieland.dao.mapper.MovieByIdMapper;
@@ -13,14 +17,16 @@ import ua.ievleva.movieland.entity.Genre;
 import ua.ievleva.movieland.entity.Movie;
 import ua.ievleva.movieland.entity.Review;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import static java.math.BigDecimal.ROUND_UP;
 import static ua.ievleva.movieland.dao.util.QueryBuilderUtil.buildConditionQuery;
 import static ua.ievleva.movieland.dao.util.QueryBuilderUtil.buildOrderByQuery;
 
-
+@PropertySource("classpath:movieland.properties")
 @Component
 public class MovieDaoImpl implements MovieDao {
 
@@ -35,19 +41,34 @@ public class MovieDaoImpl implements MovieDao {
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+    @Autowired
+    RestTemplate restTemplate;
+
+    @Value("${currency.service.url}")
+    private String currencyService;
+
     @Override
-    public List<Movie> getAllMovies(Map<String, String> orderByParameters) {
+    public List<Movie> getAllMovies(Map<String, String> parameters) {
         String sqlCondition;
 
-        if(orderByParameters.isEmpty()) {
-            sqlCondition = sqlQueries.getProperty("default.order.by");
+        if (parameters.containsKey("desc") || parameters.containsKey("ask")) {
+            sqlCondition = buildOrderByQuery(parameters);
+
         } else {
-            sqlCondition =  buildOrderByQuery(orderByParameters);
+            sqlCondition = sqlQueries.getProperty("default.order.by");
         }
+
         String sql = sqlQueries.getProperty("movies.select.allMovies")
                 .replace("[conditions]", sqlCondition);
 
-        return namedParameterJdbcTemplate.query(sql, MOVIE_MAPPER);
+        List<Movie> movies = namedParameterJdbcTemplate.query(sql, MOVIE_MAPPER);
+
+        if (parameters.containsKey("currency")) {
+            Double rate = getCurrencyRate(parameters.get("currency"));
+            movies.forEach(m -> m.setPrice(new BigDecimal(m.getPrice() / rate).setScale(2, ROUND_UP).doubleValue()));
+        }
+
+        return movies;
     }
 
     @Override
@@ -86,6 +107,12 @@ public class MovieDaoImpl implements MovieDao {
         return namedParameterJdbcTemplate.query(sql,
                 new MapSqlParameterSource("id", movieId),
                 GENRES_BY_ID_MAPPER);
+    }
+
+    private double getCurrencyRate(String currency) {
+        String body = restTemplate.getForEntity(currencyService, String.class, currency).getBody();
+
+        return new JSONObject(body.substring(1, body.length() - 1)).getDouble("rate");
     }
 
 }
