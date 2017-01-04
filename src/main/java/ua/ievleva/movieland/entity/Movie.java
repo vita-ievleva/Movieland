@@ -12,13 +12,24 @@ public class Movie {
     @JsonIgnore
     private Long id;
 
-    private Double rating;
+    private Double price;
+
     private String title;
     private String yearOfRelease;
     private String description;
     private String country;
     private List<Genre> genres;
     private List<Review> reviews;
+
+    private Double rating;
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
     public String getCountry() {
         return country;

@@ -18,6 +18,7 @@ public class MovieByIdMapper implements RowMapper<Movie> {
         movie.setYearOfRelease(rs.getString("year"));
         movie.setCountry(rs.getString("country"));
         movie.setDescription(rs.getString("description"));
+        movie.setPrice(Double.valueOf(rs.getString("price")));
 
         return movie;
     }
