@@ -40,4 +40,6 @@
         <property name="proxyTargetClass" value="true"/>
     </bean>
 
+    <bean class="org.springframework.web.client.RestTemplate"/>
+
 </beans>

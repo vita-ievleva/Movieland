@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <entry key="movies.select.allMovies">
-        SELECT movie.id, name, year, rate, genre
+        SELECT movie.id, name, year, rate, genre, price
         FROM movie
         INNER JOIN movie_genres
         ON movie.id=movie_genres.id_movie
@@ -13,7 +13,7 @@
      </entry>
 
     <entry key="movie.select.byId">
-        SELECT id, name year, country, description, rate
+        SELECT id, name year, country, description, rate, price
         FROM movie
         WHERE movie.id = :id;
     </entry>

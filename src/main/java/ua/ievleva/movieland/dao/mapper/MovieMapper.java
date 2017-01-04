@@ -35,6 +35,7 @@ public class MovieMapper implements ResultSetExtractor<List<Movie>> {
                 movie.setTitle(rs.getString("name"));
                 movie.setYearOfRelease(rs.getString("year"));
                 movie.setRating(rs.getDouble("rate"));
+                movie.setPrice(Double.valueOf(rs.getString("price")));
 
                 genres.add(new Genre(rs.getString("genre")));
                 movie.setGenres(genres);
