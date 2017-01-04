@@ -25,7 +25,6 @@ public class ReviewDaoImpl implements ReviewDao {
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @RequiresUserType(ROLE_USER)
     @Override
     public boolean addReview(Map<String, String> review) {
         String sql = sqlQueries.getProperty("insert.review");

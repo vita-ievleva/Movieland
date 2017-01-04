@@ -72,12 +72,17 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public Movie getMovieById(String movieId) {
+    public Movie getMovieById(String movieId, Map<String, String> parameters) {
         String sql = sqlQueries.getProperty("movie.select.byId");
 
         Movie movie = namedParameterJdbcTemplate.queryForObject(sql,
                 new MapSqlParameterSource("id", movieId),
                 MOVIE_BY_ID_MAPPER);
+
+        if (parameters.containsKey("currency")) {
+            Double rate = getCurrencyRate(parameters.get("currency"));
+            movie.setPrice(new BigDecimal(movie.getPrice() / rate).setScale(2, ROUND_UP).doubleValue());
+        }
 
         movie.setReviews(getReviewsByMovieId(movieId));
         movie.setGenres(getGenresByMovieId(movieId));
