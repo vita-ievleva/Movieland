@@ -10,10 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import ua.ievleva.movieland.dao.UserDao;
 import ua.ievleva.movieland.entity.User;
 import ua.ievleva.movieland.security.token.TokenUtils;
 import ua.ievleva.movieland.security.token.TokenCache;
+import ua.ievleva.movieland.service.UserService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +32,7 @@ public class AuthenticationController {
     private String expiration;
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
     @Autowired
     private TokenCache tokenCache;
@@ -42,7 +42,7 @@ public class AuthenticationController {
         User user;
 
         try {
-            user = userDao.findUserByCredentials(credentials);
+            user = userService.findUserByCredentials(credentials);
         } catch (Exception e) {
             logger.error("Invalid password or username was provided.", e);
 

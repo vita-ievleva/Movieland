@@ -28,9 +28,8 @@ public class UserValidationInterceptor implements MethodInterceptor {
         if (token == null || !tokenUtils.checkUserRole(ROLE_USER, token)) {
 
             logger.error("User does not have permissions for this operation.");
-            return null;
+            return false;
         }
-
         logger.debug("User is authorized.");
 
         return invocation.proceed();
