@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 import ua.ievleva.movieland.dao.MovieDao;
 import ua.ievleva.movieland.dao.mapper.GenresByIdMapper;
@@ -27,7 +27,7 @@ import static ua.ievleva.movieland.dao.util.QueryBuilderUtil.buildConditionQuery
 import static ua.ievleva.movieland.dao.util.QueryBuilderUtil.buildOrderByQuery;
 
 @PropertySource("classpath:movieland.properties")
-@Component
+@Repository
 public class MovieDaoImpl implements MovieDao {
 
     private static final MovieMapper MOVIE_MAPPER = new MovieMapper();

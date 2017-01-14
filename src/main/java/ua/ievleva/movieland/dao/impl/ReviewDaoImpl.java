@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ua.ievleva.movieland.dao.ReviewDao;
 import ua.ievleva.movieland.security.annotation.RequiresUserType;
 
@@ -14,7 +14,7 @@ import java.util.Properties;
 import static ua.ievleva.movieland.entity.Role.ROLE_USER;
 
 
-@Component
+@Repository
 public class ReviewDaoImpl implements ReviewDao {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
