@@ -13,7 +13,7 @@
      </entry>
 
     <entry key="movie.select.byId">
-        SELECT id, name year, country, description, rate, price
+        SELECT id, name, year, country, description, rate, price
         FROM movie
         WHERE movie.id = :id;
     </entry>
