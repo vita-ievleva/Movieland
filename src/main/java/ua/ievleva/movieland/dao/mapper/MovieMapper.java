@@ -8,21 +8,20 @@ import ua.ievleva.movieland.entity.Movie;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
-public class MovieMapper implements ResultSetExtractor<List<Movie>> {
-
+public class MovieMapper implements ResultSetExtractor<Collection<Movie>> {
 
     @Override
-    public List<Movie> extractData(ResultSet rs) throws SQLException, DataAccessException {
+    public Collection<Movie> extractData(ResultSet rs) throws SQLException, DataAccessException {
         Map<Long, Movie> map = new HashMap<>();
         Movie movie;
 
         while (rs.next()) {
-            List<Genre> genres;
+            Collection<Genre> genres;
             Long id = rs.getLong("id");
 
             movie = map.get(id);
@@ -47,7 +46,7 @@ public class MovieMapper implements ResultSetExtractor<List<Movie>> {
                 movie.setGenres(genres);
             }
         }
-        return new ArrayList<>(map.values());
+        return map.values();
     }
 
 }

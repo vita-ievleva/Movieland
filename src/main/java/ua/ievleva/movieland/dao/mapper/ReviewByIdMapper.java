@@ -7,13 +7,14 @@ import ua.ievleva.movieland.entity.Review;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
-public class ReviewByIdMapper implements ResultSetExtractor<List<Review>> {
+public class ReviewByIdMapper implements ResultSetExtractor<Collection<Review>> {
 
     @Override
-    public List<Review> extractData(ResultSet rs) throws SQLException, DataAccessException {
+    public Collection<Review> extractData(ResultSet rs) throws SQLException, DataAccessException {
         List<Review> reviewList = new ArrayList<>();
 
         while (rs.next()) {

@@ -1,7 +1,7 @@
 package ua.ievleva.movieland.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ua.ievleva.movieland.dao.UserDao;
 import ua.ievleva.movieland.entity.User;
 import ua.ievleva.movieland.exception.InvalidCredentialsException;
@@ -9,7 +9,7 @@ import ua.ievleva.movieland.service.UserService;
 
 import java.util.Map;
 
-@Component
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired

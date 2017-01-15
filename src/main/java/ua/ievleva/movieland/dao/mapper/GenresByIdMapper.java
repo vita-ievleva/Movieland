@@ -7,12 +7,13 @@ import ua.ievleva.movieland.entity.Genre;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-public class GenresByIdMapper implements ResultSetExtractor<List<Genre>> {
+public class GenresByIdMapper implements ResultSetExtractor<Collection<Genre>> {
 
     @Override
-    public List<Genre> extractData(ResultSet rs) throws SQLException, DataAccessException {
+    public Collection<Genre> extractData(ResultSet rs) throws SQLException, DataAccessException {
         List<Genre> genreList = new ArrayList<>();
 
         while (rs.next()) {

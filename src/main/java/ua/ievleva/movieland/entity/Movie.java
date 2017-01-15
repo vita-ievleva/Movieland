@@ -4,7 +4,7 @@ package ua.ievleva.movieland.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import java.util.List;
+import java.util.Collection;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Movie {
@@ -18,8 +18,8 @@ public class Movie {
     private String yearOfRelease;
     private String description;
     private String country;
-    private List<Genre> genres;
-    private List<Review> reviews;
+    private Collection<Genre> genres;
+    private Collection<Review> reviews;
 
     private Double rating;
 
@@ -47,11 +47,11 @@ public class Movie {
         this.description = description;
     }
 
-    public List<Review> getReviews() {
+    public Collection<Review> getReviews() {
         return reviews;
     }
 
-    public void setReviews(List<Review> reviews) {
+    public void setReviews(Collection<Review> reviews) {
         this.reviews = reviews;
     }
 
@@ -63,11 +63,11 @@ public class Movie {
         this.id = id;
     }
 
-    public List<Genre> getGenres() {
+    public Collection<Genre> getGenres() {
         return genres;
     }
 
-    public void setGenres(List<Genre> genres) {
+    public void setGenres(Collection<Genre> genres) {
         this.genres = genres;
     }
 
