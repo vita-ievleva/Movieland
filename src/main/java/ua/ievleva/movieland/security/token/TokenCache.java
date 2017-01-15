@@ -17,7 +17,7 @@ public class TokenCache {
     private TokenUtils tokenUtils;
 
     private Timer timer;
-    private static Map<String, String> cache = new HashMap<>();
+    private Map<String, String> cache = new HashMap<>();
 
     public TokenCache(int seconds) {
         timer = new Timer();
@@ -29,7 +29,15 @@ public class TokenCache {
 
     private class TokenCacheReminder extends TimerTask {
         public void run() {
-            clearExpiredElementsFromCache(cache);
+            logger.debug("Checking cache.");
+            Date currentDate = new Date();
+
+            cache.forEach((k, v) -> {
+                if (tokenUtils.parseToken(v).getExpiration().before(currentDate)) {
+                    cache.remove(k);
+                    logger.debug("User " + k + " has been deleted from cache.");
+                }
+            });
         }
     }
 
@@ -41,16 +49,5 @@ public class TokenCache {
         return cache.containsKey(tokenUtils.parseToken(token).getSubject());
     }
 
-    private void clearExpiredElementsFromCache(Map<String, String> cache) {
-        logger.debug("Checking cache.");
-        Date currentDate = new Date();
-
-        cache.forEach((k, v) -> {
-            if (tokenUtils.parseToken(v).getExpiration().compareTo(currentDate) < 0) {
-                cache.remove(k);
-                logger.debug("User " + k + " has been deleted from cache.");
-            }
-        });
-    }
 
 }

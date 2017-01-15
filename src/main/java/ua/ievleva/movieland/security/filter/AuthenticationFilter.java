@@ -3,18 +3,19 @@ package ua.ievleva.movieland.security.filter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import ua.ievleva.movieland.security.token.TokenCache;
 
-import javax.servlet.*;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.HttpHeaders;
 import java.io.IOException;
 
-@Component
 public class AuthenticationFilter extends DelegatingFilterProxy {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
