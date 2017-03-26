@@ -24,7 +24,7 @@ public class QueryGenerator {
     public static String buildOrderByQuery(Map<String, String> searchParameters) {
         StringBuilder sb = new StringBuilder();
         searchParameters.forEach((k, v) -> {
-            if (k.equalsIgnoreCase("desc") || k.equalsIgnoreCase("asc")) {
+            if (v.equalsIgnoreCase("desc") || v.equalsIgnoreCase("asc")) {
                 sb.append(k).append(" ").append(v).append(", ");
             }
         });
@@ -36,7 +36,7 @@ public class QueryGenerator {
 
         String sqlCondition ;
 
-        if (parameters.containsKey("desc") || parameters.containsKey("asc")) {
+        if (parameters.containsValue("desc") || parameters.containsValue("asc")) {
             sqlCondition = buildOrderByQuery(parameters);
 
         } else {
