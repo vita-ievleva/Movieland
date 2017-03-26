@@ -9,7 +9,7 @@ import ua.ievleva.movieland.service.MovieService;
 import java.util.Map;
 
 @RequestMapping("/v1")
-@RestController
+@RestController("movieLandController")
 public class MovieLandController {
 
     @Autowired
