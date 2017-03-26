@@ -33,7 +33,7 @@
     </entry>
 
     <entry key="movies.select.bySearchParameters">
-        SELECT movie.id, name, year, rate, genre FROM movie
+        SELECT movie.id, name, year, rate, genre, price FROM movie
         INNER JOIN movie_genres
         ON movie.id=movie_genres.id_movie
         WHERE [conditions];
