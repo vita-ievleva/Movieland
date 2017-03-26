@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <context:component-scan base-package="ua.ievleva.movieland"/>
+
+    <context:property-placeholder location="classpath:db.properties"/>
+    <util:properties id="sqlQueries" location="classpath:sql-queries.xml"/>
+
+    <mvc:annotation-driven/>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/v1/**"/>
+            <bean id="securityHandlerInterceptor" class="ua.ievleva.movieland.security.SecurityHandlerInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <bean name="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${db.driver}"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+    </bean>
+
+    <bean id="bcrypt" class="org.mindrot.jbcrypt.BCrypt"/>
+
+    <bean id="tokenCache" class="ua.ievleva.movieland.security.token.TokenCache">
+        <constructor-arg type="int" value="120"/>
+    </bean>
+
+    <bean class="org.springframework.web.client.RestTemplate"/>
+</beans>
