@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 
@@ -17,7 +17,7 @@ public class MovieMapper implements ResultSetExtractor<Collection<Movie>> {
 
     @Override
     public Collection<Movie> extractData(ResultSet rs) throws SQLException, DataAccessException {
-        Map<Long, Movie> map = new HashMap<>();
+        Map<Long, Movie> map = new LinkedHashMap<>();
         Movie movie;
 
         while (rs.next()) {
