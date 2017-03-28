@@ -11,6 +11,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"})
 @WebAppConfiguration
 @ActiveProfiles("test")
-public class MovieLandIntegrationTest {
+public abstract class MovieLandIntegrationTest {
 
 }
