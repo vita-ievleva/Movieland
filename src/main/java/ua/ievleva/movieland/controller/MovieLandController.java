@@ -34,9 +34,4 @@ public class MovieLandController {
         return new ResponseEntity<>(movieService.searchMovies(searchQuery), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/rate", produces = {"application/json", "application/xml"})
-    public ResponseEntity<?> rateForMovie(@RequestBody Map<String, String> movieRate) {
-
-        return new ResponseEntity<>(movieService.rateForMovie(movieRate), HttpStatus.OK);
-    }
 }
