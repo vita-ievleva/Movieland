@@ -46,8 +46,12 @@ public class TokenCache {
     }
 
     public boolean isExistToken(String token) {
-        return cache.containsKey(tokenUtils.parseToken(token).getSubject());
+        try {
+            return cache.containsKey(tokenUtils.parseToken(token).getSubject());
+        } catch(Exception e) {
+            logger.error("Failed to parse token", e);
+            return false;
+        }
     }
-
 
 }

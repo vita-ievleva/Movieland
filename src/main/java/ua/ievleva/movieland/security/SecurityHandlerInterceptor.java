@@ -20,19 +20,16 @@ public class SecurityHandlerInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
         logger.debug("Pre handle request");
-
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
 
             if (tokenCache.isExistToken(token)) {
                 logger.info("Token has been found in cache. User is Logged in");
             } else {
+                logger.warn("Token has not been found in cache.");
                 response.setStatus(401);
                 return false;
             }
-
-
         return true;
     }
 
