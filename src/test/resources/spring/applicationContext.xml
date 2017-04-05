@@ -22,7 +22,7 @@
 
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/v1/**"/>
+            <mvc:mapping path="/v1/review"/>
             <bean id="securityHandlerInterceptor" class="ua.ievleva.movieland.security.SecurityHandlerInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
