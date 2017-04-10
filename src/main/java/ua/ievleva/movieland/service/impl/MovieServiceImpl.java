@@ -25,14 +25,11 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Collection<Movie> getAllMovies(Map<String, String> parameters) {
-
         Collection<Movie> movies = movieDao.getAllMovies(parameters);
-
         if (parameters.containsKey("currency")) {
             Double rate = currencyService.getCurrencyRate(parameters.get("currency"));
             movies.forEach(m -> m.setPrice(m.getPrice() / rate));
         }
-
         return movies;
     }
 
@@ -45,7 +42,7 @@ public class MovieServiceImpl implements MovieService {
             movie.setPrice(movie.getPrice() / rate);
         }
 
-        return movieDao.getMovieById(movieId, parameters);
+        return movie;
     }
 
     @Override
