@@ -34,12 +34,9 @@ public class MovieLandControllerTest extends MovieLandIntegrationTest {
     @Test
     public void testServletContextProvidesMovielandController() {
         ServletContext servletContext = wac.getServletContext();
-
         Assert.assertNotNull(servletContext);
         assertTrue(servletContext instanceof MockServletContext);
         Assert.assertNotNull(wac.getBean("movieLandController"));
-
-
     }
 
     @Test
@@ -50,6 +47,13 @@ public class MovieLandControllerTest extends MovieLandIntegrationTest {
                 .andExpect(jsonPath("$.[0].yearOfRelease").value("1994"))
                 .andExpect(jsonPath("$.[24].price").value(100.0))
                 .andExpect(jsonPath("$.[24].yearOfRelease").value("1976"));
+    }
+
+   @Test
+    public void getAllMoviesWithSpecificCurrency() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/v1/movies?currency=USD"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.[0].price").value(Matchers.closeTo(4.57, 0.01)));
     }
 
     @Test
@@ -80,6 +84,13 @@ public class MovieLandControllerTest extends MovieLandIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.price").value(134.67))
                 .andExpect(jsonPath("$.title").value("Зеленая миля/The Green Mile"));
+    }
+
+    @Test
+    public void getMovieByIdWithSpecificCurrency() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/v1/movie/1?currency=USD"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.price").value(Matchers.closeTo(4.99, 0.01)));
     }
 
     @Test
