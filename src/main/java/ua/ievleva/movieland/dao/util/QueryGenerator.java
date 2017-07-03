@@ -24,7 +24,7 @@ public class QueryGenerator {
     public static String buildOrderByQuery(Map<String, String> searchParameters) {
         StringBuilder sb = new StringBuilder();
         searchParameters.forEach((k, v) -> {
-            if (v.equalsIgnoreCase("desc") || v.equalsIgnoreCase("asc")) {
+            if ("desc".equalsIgnoreCase(v) || "asc".equalsIgnoreCase(v)) {
                 sb.append(k).append(" ").append(v).append(", ");
             }
         });

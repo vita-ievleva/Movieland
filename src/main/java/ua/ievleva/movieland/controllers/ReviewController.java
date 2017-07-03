@@ -1,4 +1,4 @@
-package ua.ievleva.movieland.controller;
+package ua.ievleva.movieland.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,7 @@ public class ReviewController {
     private ReviewService reviewService;
 
     @PostMapping(value = "/review", consumes = "application/json", produces = {"application/json", "application/xml"})
-    public ResponseEntity<?> addReview(@RequestBody Map<String, String> review, HttpServletRequest request) {
+    public ResponseEntity<Map<String, Boolean>> addReview(@RequestBody Map<String, String> review, HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         review.put("username", tokenUtils.parseToken(token).getSubject());
 
@@ -33,11 +33,11 @@ public class ReviewController {
     }
 
     @DeleteMapping(value = "/review")
-    public ResponseEntity<?> deleteReview(@RequestBody Map<String, String> review, HttpServletRequest request) {
+    public ResponseEntity<Boolean> deleteReview(@RequestBody Map<String, String> review, HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         review.put("username", tokenUtils.parseToken(token).getSubject());
 
-        return new ResponseEntity<>(reviewService.deleteReview(review),HttpStatus.OK);
+        return new ResponseEntity<>(reviewService.deleteReview(review), HttpStatus.OK);
     }
 
 }

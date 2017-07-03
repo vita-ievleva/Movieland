@@ -21,13 +21,14 @@ public class TokenCache {
 
     public TokenCache(int seconds) {
         timer = new Timer();
-        timer.schedule(new TokenCacheReminder(), 0, seconds * 1000);
+        timer.schedule(new TokenCacheReminder(), 0, seconds * 1000L);
     }
 
     public TokenCache() {
     }
 
     private class TokenCacheReminder extends TimerTask {
+        @Override
         public void run() {
             logger.debug("Checking cache.");
             Date currentDate = new Date();

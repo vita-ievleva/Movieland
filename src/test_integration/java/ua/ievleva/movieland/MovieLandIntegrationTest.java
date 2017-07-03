@@ -1,4 +1,4 @@
-package ua.ievleva.movieland.controller;
+package ua.ievleva.movieland;
 
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;

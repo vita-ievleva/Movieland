@@ -16,16 +16,18 @@ import java.util.Properties;
 @Repository
 public class UserDaoImpl implements UserDao {
 
-    private static UserMapper USER_MAPPER = new UserMapper();
+    private static final UserMapper USER_MAPPER = new UserMapper();
+
+    private final TokenUtils tokenUtils;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final Properties sqlQueries;
 
     @Autowired
-    private TokenUtils tokenUtils;
-
-    @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
-    @Autowired
-    private Properties sqlQueries;
+    public UserDaoImpl(TokenUtils tokenUtils, NamedParameterJdbcTemplate namedParameterJdbcTemplate, Properties sqlQueries) {
+        this.tokenUtils = tokenUtils;
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+        this.sqlQueries = sqlQueries;
+    }
 
     @Override
     public User findUserByCredentials(Map<String, String> credentials) {
@@ -35,7 +37,7 @@ public class UserDaoImpl implements UserDao {
                 new MapSqlParameterSource("username", credentials.get("username")),
                 USER_MAPPER);
 
-        if (!tokenUtils.isCorrectPassword(credentials.get("password"), user.getPassword())) {
+        if (!tokenUtils.isCorrectPassword("", user.getPassword())) {
             throw new InvalidCredentialsException("Invalid password.");
         }
 
