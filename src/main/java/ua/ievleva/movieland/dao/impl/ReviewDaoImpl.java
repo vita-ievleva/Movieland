@@ -15,7 +15,6 @@ import java.util.Properties;
 public class ReviewDaoImpl implements ReviewDao {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-
     @Autowired
     private Properties sqlQueries;
 

@@ -22,11 +22,6 @@ public class RatingDaoImpl implements RatingDao {
     @Override
     public boolean rateForMovie(Map<String, String> movieRate) {
 
-        // {"movieId":"0", "username":"", "rate":"9"}
-
-
-        // insert or update rate for movie by ID
-        // recalculate rate for movie and update movie table
         return false;
     }
 }

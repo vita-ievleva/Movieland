@@ -26,7 +26,7 @@ public class SecurityHandlerInterceptor extends HandlerInterceptorAdapter {
             if (tokenCache.isExistToken(token)) {
                 logger.info("Token has been found in cache. User is Logged in");
             } else {
-                logger.warn("Token has not been found in cache.");
+                logger.error("Token has not been found in cache.");
                 response.setStatus(401);
                 return false;
             }

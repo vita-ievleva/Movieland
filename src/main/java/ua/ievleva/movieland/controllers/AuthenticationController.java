@@ -1,4 +1,4 @@
-package ua.ievleva.movieland.controller;
+package ua.ievleva.movieland.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ua.ievleva.movieland.entity.User;
-import ua.ievleva.movieland.security.token.TokenUtils;
 import ua.ievleva.movieland.security.token.TokenCache;
+import ua.ievleva.movieland.security.token.TokenUtils;
 import ua.ievleva.movieland.service.UserService;
 
 import java.util.HashMap;
@@ -25,17 +25,19 @@ import static java.lang.Integer.parseInt;
 public class AuthenticationController {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    private TokenUtils tokenUtils;
-
     @Value("${jwt.expiration.hours}")
     private String expiration;
 
-    @Autowired
-    private UserService userService;
+    private final TokenUtils tokenUtils;
+    private final UserService userService;
+    private final TokenCache tokenCache;
 
     @Autowired
-    private TokenCache tokenCache;
+    public AuthenticationController(TokenUtils tokenUtils, UserService userService, TokenCache tokenCache) {
+        this.tokenUtils = tokenUtils;
+        this.userService = userService;
+        this.tokenCache = tokenCache;
+    }
 
     @PostMapping(produces = {"application/json", "application/xml"})
     public ResponseEntity authenticateUser(@RequestBody Map<String, String> credentials) {
