@@ -1,4 +1,4 @@
-package ua.ievleva.movieland.controller;
+package ua.ievleva.movieland;
 
 import com.jayway.jsonpath.JsonPath;
 import org.junit.Before;
@@ -16,6 +16,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 public class ReviewControllerTest extends MovieLandIntegrationTest {
+    public static final String CONTENT = "{\"username\": \"tommy\", \"password\": \"123456\"}";
+    public static final String CONTENT1 = "{\"username\": \"tommy\", \"id_movie\": \"1\", \"review_text\": \"This movie is great!\"}";
+
     @Autowired
     private WebApplicationContext wac;
 
@@ -29,13 +32,14 @@ public class ReviewControllerTest extends MovieLandIntegrationTest {
     @Test
     public void addReviewSuccess() throws Exception {
         MvcResult mvcResult  = this.mockMvc.perform(MockMvcRequestBuilders.post("/auth/login")
-                .content("{\"username\": \"tommy\", \"password\": \"123456\"}").contentType(MediaType.APPLICATION_JSON))
+                .content(CONTENT).contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         String token = JsonPath.read(mvcResult.getResponse().getContentAsString(), "token");
         System.out.println(token);
 
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/v1/review").header("Authorization", token)
-                .content("{\"username\": \"tommy\", \"id_movie\": \"1\", \"review_text\": \"This movie is great!\"}")
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/v1/review")
+                .header("Authorization", token)
+                .content(CONTENT1)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("result").value(true));
@@ -43,12 +47,14 @@ public class ReviewControllerTest extends MovieLandIntegrationTest {
 
     @Test
     public void addReviewFail() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/v1/review").header("Authorization", "token")
-                .content("{\"username\": \"tommy\", \"id_movie\": \"1\", \"review_text\": \"This movie is great!\"}")
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/v1/review")
+                .header("Authorization", "token")
+                .content(CONTENT1)
                 .contentType(MediaType.APPLICATION_JSON));
 
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/v1/review")//.header("Authorization", "token")
-                .content("{\"username\": \"tommy\", \"id_movie\": \"1\", \"review_text\": \"This movie is great!\"}")
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/v1/review")
+                .header("Authorization", "token")
+                .content(CONTENT1)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is4xxClientError());
     }

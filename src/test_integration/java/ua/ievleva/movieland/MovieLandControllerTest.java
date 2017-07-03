@@ -1,4 +1,4 @@
-package ua.ievleva.movieland.controller;
+package ua.ievleva.movieland;
 
 import org.hamcrest.Matchers;
 import org.junit.Assert;
