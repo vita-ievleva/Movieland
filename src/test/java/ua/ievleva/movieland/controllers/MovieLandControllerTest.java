@@ -11,8 +11,8 @@ import java.util.Collection;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.*;
+import static ua.ievleva.movieland.helpers.MovielandTestConstants.ID;
 import static ua.ievleva.movieland.helpers.movie.MovieFactory.*;
-import static ua.ievleva.movieland.helpers.movie.MovielandTestConstants.ID;
 
 public class MovieLandControllerTest {
     private MovieLandController movieLandControllerSUT;
@@ -28,7 +28,7 @@ public class MovieLandControllerTest {
     }
 
     @Test
-    public void getAllMovies() throws Exception {
+    public void shouldFetchListOfAllMovies() throws Exception {
         ResponseEntity<Collection<Movie>> result = movieLandControllerSUT.getAllMovies(EMPTY_MAP);
 
         assertThat("Response should be 200 OK.", result.getStatusCode().is2xxSuccessful());

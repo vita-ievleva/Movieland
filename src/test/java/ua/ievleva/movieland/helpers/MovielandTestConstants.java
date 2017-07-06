@@ -1,4 +1,4 @@
-package ua.ievleva.movieland.helpers.movie;
+package ua.ievleva.movieland.helpers;
 
 
 public class MovielandTestConstants {

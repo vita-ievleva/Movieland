@@ -2,6 +2,7 @@ package ua.ievleva.movieland.helpers.movie;
 
 
 import ua.ievleva.movieland.entity.Movie;
+import ua.ievleva.movieland.helpers.MovielandTestConstants;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,7 +26,9 @@ public class MovieFactory {
 
 
     private static Movie aDefaultMovie(){
-        return MovieBuilder.aMovie().id(Long.valueOf(MovielandTestConstants.ID)).title(MovielandTestConstants.DEFAULT_MOVIE_NAME).yearOfRelease(MovielandTestConstants.YEAR_OF_RELEASE).build();
+        return MovieBuilder.aMovie().id(Long.valueOf(MovielandTestConstants.ID))
+                .title(MovielandTestConstants.DEFAULT_MOVIE_NAME)
+                .yearOfRelease(MovielandTestConstants.YEAR_OF_RELEASE).build();
     }
 
 

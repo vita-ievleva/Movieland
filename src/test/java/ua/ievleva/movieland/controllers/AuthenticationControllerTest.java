@@ -12,9 +12,9 @@ import ua.ievleva.movieland.service.UserService;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.*;
+import static ua.ievleva.movieland.helpers.MovielandTestConstants.TOKEN;
 import static ua.ievleva.movieland.helpers.movie.MovieFactory.EMPTY_MAP;
 import static ua.ievleva.movieland.helpers.movie.MovieFactory.INVALID_CREDENTIALS_MAP;
-import static ua.ievleva.movieland.helpers.movie.MovielandTestConstants.TOKEN;
 import static ua.ievleva.movieland.helpers.user.UserFactory.aDefaultUser;
 
 public class AuthenticationControllerTest {
